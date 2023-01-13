@@ -6,7 +6,7 @@ const mongoose = require('mongoose');
 
 
 router.get(`/`, async (req, res) =>{
-    // localhost:3000/api/v1/products?categories=2342342,234234
+    // localhost:3000/api/v1/products?categories=2342342,234234. in here can select the catogori by deviding
     let filter = {};
     if(req.query.categories)
     {
@@ -109,7 +109,7 @@ router.get(`/get/count`, async (req, res) =>{
         productCount: productCount
     });
 })
-
+//count of displayng portfolios
 router.get(`/get/featured/:count`, async (req, res) =>{
     const count = req.params.count ? req.params.count : 0
     const products = await Product.find({isFeatured: true}).limit(+count);
