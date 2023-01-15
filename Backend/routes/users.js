@@ -4,7 +4,6 @@ const router = express.Router();
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 
-//in here can enter any details what you want to replace
 router.get(`/`, async (req, res) =>{
     const userList = await User.find().select('-passwordHash');
 
@@ -51,7 +50,7 @@ router.put('/:id',async (req, res)=> {
     if(req.body.password) {
         newPassword = bcrypt.hashSync(req.body.password, 10)
     } else {
-        newPassword = userExist.passwordHash;//passwordhash use to hide the password
+        newPassword = userExist.passwordHash;
     }
 
     const user = await User.findByIdAndUpdate(
@@ -76,15 +75,13 @@ router.put('/:id',async (req, res)=> {
 
     res.send(user);
 })
-//login option
+
 router.post('/login', async (req,res) => {
     const user = await User.findOne({email: req.body.email})
     const secret = process.env.secret;
     if(!user) {
         return res.status(400).send('The user not found');
     }
-
-    //return res.status(200).send(user);
 
     if(user && bcrypt.compareSync(req.body.password, user.passwordHash)) {
         const token = jwt.sign(
@@ -100,8 +97,10 @@ router.post('/login', async (req,res) => {
     } else {
        res.status(400).send('password is wrong!');
     }
+
     
 })
+
 
 router.post('/register', async (req,res)=>{
     let user = new User({
