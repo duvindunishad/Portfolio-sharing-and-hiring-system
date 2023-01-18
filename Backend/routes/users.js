@@ -26,7 +26,8 @@ router.post('/', async (req,res)=>{
     let user = new User({
         name: req.body.name,
         email: req.body.email,
-        passwordHash: bcrypt.hashSync(req.body.password, 10),
+        passwordHash:req.body.passwordHash,
+        //passwordHash: bcrypt.hashSync(req.body.password, 10),
         phone: req.body.phone,
         isAdmin: req.body.isAdmin,
         street: req.body.street,
@@ -87,7 +88,7 @@ router.post('/login', async (req,res) => {
         const token = jwt.sign(
             {
                 userId: user.id,
-                isAdmin: user.isAdmin
+            //    isAdmin: user.isAdmin
             },
             secret,
             {expiresIn : '1d'}

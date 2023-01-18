@@ -37,7 +37,7 @@ router.post('/', async (req,res)=>{
     res.send(category);
 })
 
-//update the category/ items
+
 router.put('/:id',async (req, res)=> {
     const category = await Category.findByIdAndUpdate(
         req.params.id,
