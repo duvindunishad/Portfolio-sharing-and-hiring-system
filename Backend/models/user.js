@@ -11,7 +11,8 @@ const userSchema = new mongoose.Schema({
     },
     passwordHash: {
         type: String,
-        required: true,
+        required: false,
+        //change here to false
     },
     phone: {
         type: String,
